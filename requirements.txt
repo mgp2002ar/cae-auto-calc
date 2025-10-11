@@ -1,0 +1,6 @@
+streamlit
+lxml
+pdfminer.six
+PyMuPDF
+pytesseract
+Pillow
