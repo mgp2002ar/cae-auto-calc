@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>POLYNEW — Visión Global</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0e1a;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    color: #e2e8f0;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, #6366f1, #a855f7, #ec4899);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    text-align: center;
+    color: #64748b;
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+  }
+
+  /* FLOW COLUMN */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .arrow-down {
+    width: 2px;
+    height: 32px;
+    background: linear-gradient(to bottom, #6366f1, #a855f7);
+    position: relative;
+  }
+  .arrow-down::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #a855f7;
+  }
+
+  /* CARDS */
+  .card {
+    border-radius: 16px;
+    padding: 20px 28px;
+    width: 340px;
+    text-align: center;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.08);
+  }
+  .card .icon { font-size: 2rem; margin-bottom: 8px; }
+  .card .title { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .card .desc { font-size: 0.78rem; color: #94a3b8; line-height: 1.5; }
+
+  .card-blue   { background: linear-gradient(135deg, #1e3a5f, #1e40af22); border-color: #3b82f6; }
+  .card-purple { background: linear-gradient(135deg, #2e1b4e, #7c3aed22); border-color: #7c3aed; }
+  .card-teal   { background: linear-gradient(135deg, #0f3d3d, #0d948822); border-color: #0d9488; }
+  .card-green  { background: linear-gradient(135deg, #14351f, #16a34a22); border-color: #16a34a; }
+  .card-yellow { background: linear-gradient(135deg, #3d2a00, #ca8a0422); border-color: #ca8a04; }
+  .card-red    { background: linear-gradient(135deg, #3d1a1a, #dc262622); border-color: #dc2626; }
+
+  /* ENGINE BLOCK */
+  .engine-block {
+    background: linear-gradient(135deg, #111827, #1e293b);
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 28px;
+    width: 600px;
+    margin: 0;
+  }
+  .engine-title {
+    text-align: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    color: #64748b;
+    margin-bottom: 20px;
+  }
+  .engine-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .engine-card {
+    background: #1e293b;
+    border-radius: 12px;
+    padding: 14px 16px;
+    border: 1px solid #334155;
+    text-align: center;
+  }
+  .engine-card .icon { font-size: 1.5rem; margin-bottom: 6px; }
+  .engine-card .title { font-size: 0.82rem; font-weight: 700; color: #e2e8f0; }
+  .engine-card .sub { font-size: 0.7rem; color: #64748b; margin-top: 3px; }
+  .engine-card.highlight { border-color: #6366f1; background: #1a1f3a; }
+
+  .engine-arrow {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #475569;
+    padding: 4px 0;
+  }
+
+  /* SPLIT ROW */
+  .split-row {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    justify-content: center;
+    width: 700px;
+  }
+  .split-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    flex: 1;
+  }
+  .split-col .card { width: 100%; }
+
+  .split-arrow-container {
+    display: flex;
+    justify-content: space-around;
+    width: 700px;
+    position: relative;
+  }
+  .split-arrow-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(to right, #6366f1, #ec4899, #6366f1);
+  }
+
+  .branch-line {
+    width: 2px;
+    height: 28px;
+    background: linear-gradient(to bottom, #6366f1, #ec4899);
+    position: relative;
+  }
+  .branch-line::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid #ec4899;
+  }
+
+  /* PHASE BAR */
+  .phase-bar {
+    display: flex;
+    gap: 0;
+    width: 600px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #334155;
+    margin-top: 20px;
+  }
+  .phase {
+    flex: 1;
+    padding: 14px 10px;
+    text-align: center;
+    font-size: 0.72rem;
+  }
+  .phase .num { font-size: 1.1rem; font-weight: 800; margin-bottom: 4px; }
+  .phase .label { color: #94a3b8; line-height: 1.4; }
+  .phase-1 { background: #1a2035; border-right: 1px solid #334155; }
+  .phase-2 { background: #1a2535; border-right: 1px solid #334155; }
+  .phase-3 { background: #1a3025; }
+  .phase-arrow { display: flex; align-items: center; justify-content: center; font-size: 1rem; color: #6366f1; padding: 0 4px; background: #111827; }
+
+  /* TAGS */
+  .tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 8px;
+  }
+  .tag {
+    font-size: 0.65rem;
+    padding: 2px 8px;
+    border-radius: 999px;
+    background: rgba(99,102,241,0.15);
+    border: 1px solid rgba(99,102,241,0.3);
+    color: #a5b4fc;
+  }
+
+  /* CONNECTOR HORIZONTAL */
+  .h-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 700px;
+  }
+  .h-line { height: 2px; flex: 1; background: linear-gradient(to right, #6366f1, #a855f7); }
+  .h-dot { width: 8px; height: 8px; border-radius: 50%; background: #a855f7; }
+
+  .footer {
+    text-align: center;
+    margin-top: 48px;
+    font-size: 0.7rem;
+    color: #334155;
+    letter-spacing: 1px;
+  }
+</style>
+</head>
+<body>
+
+<h1>POLYNEW</h1>
+<p class="subtitle">De la idea al mueble en tu casa — todo en un solo flujo</p>
+
+<div class="flow">
+
+  <!-- PASO 1: MEDIR -->
+  <div class="card card-blue">
+    <div class="icon">📐</div>
+    <div class="title">MEDIR EL ESPACIO</div>
+    <div class="desc">Cámara AR / LiDAR del móvil<br>Sin cinta métrica, sin errores</div>
+    <div class="tags">
+      <span class="tag">ARKit</span>
+      <span class="tag">LiDAR iPhone</span>
+      <span class="tag">ARCore Android</span>
+    </div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- PASO 2: DISEÑAR -->
+  <div class="card card-purple">
+    <div class="icon">🤖</div>
+    <div class="title">DISEÑAR EL MUEBLE</div>
+    <div class="desc">Voz · Texto · "Inspírame" · Fotos estilo<br>Presupuesto máximo · IA genera la propuesta</div>
+    <div class="tags">
+      <span class="tag">Claude API</span>
+      <span class="tag">GPT-4o Vision</span>
+      <span class="tag">Pinterest</span>
+    </div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- PASO 3: VER EN CASA -->
+  <div class="card card-teal">
+    <div class="icon">🏠</div>
+    <div class="title">VER EN TU CASA</div>
+    <div class="desc">El mueble aparece en tu habitación real<br>en tiempo real con AR — antes de comprar</div>
+    <div class="tags">
+      <span class="tag">AR overlay</span>
+      <span class="tag">Escala real</span>
+    </div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- MOTOR TÉCNICO -->
+  <div class="engine-block">
+    <div class="engine-title">⚙️ &nbsp; Motor técnico (invisible para el cliente)</div>
+    <div class="engine-grid">
+      <div class="engine-card highlight">
+        <div class="icon">🪵</div>
+        <div class="title">Generador de paneles</div>
+        <div class="sub">PolyBoard mejorado<br>Despiece automático</div>
+      </div>
+      <div class="engine-card highlight">
+        <div class="icon">📊</div>
+        <div class="title">Análisis estructural</div>
+        <div class="sub">EN 14749 / EN 16122<br>Deflexión real de estantes</div>
+      </div>
+      <div class="engine-card highlight">
+        <div class="icon">✂️</div>
+        <div class="title">Optimizador de corte</div>
+        <div class="sub">OptiCut mejorado<br>Guillotina + FFD + refine</div>
+      </div>
+      <div class="engine-card highlight">
+        <div class="icon">🔄</div>
+        <div class="title">Alternativas automáticas</div>
+        <div class="sub">Si algo falla estructura<br>sugiere variantes al instante</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- PRECIO -->
+  <div class="card card-yellow">
+    <div class="icon">💰</div>
+    <div class="title">PRECIO EN VIVO</div>
+    <div class="desc">Material + corte + envío + instalación (opcional)<br><strong style="color:#fbbf24">Oculto hasta el pago</strong></div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- PAGO -->
+  <div class="card card-green">
+    <div class="icon">💳</div>
+    <div class="title">PAGO SEGURO</div>
+    <div class="desc">Pasarela segura · Escrow para carpintero<br>Dinero en custodia hasta entrega</div>
+  </div>
+
+  <div class="arrow-down" style="height:0; visibility:hidden;"></div>
+
+  <!-- SPLIT: 3 destinos -->
+  <div style="display:flex; width:700px; justify-content:space-around; margin-top:16px; position:relative;">
+    <div style="position:absolute; top:0; left:18%; width:64%; height:2px; background: linear-gradient(to right,#6366f1,#a855f7,#ec4899);"></div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:1;">
+      <div style="width:2px;height:28px;background:linear-gradient(to bottom,#6366f1,#6366f1);position:relative;">
+        <div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid #6366f1;"></div>
+      </div>
+      <div class="card card-blue" style="width:200px;">
+        <div class="icon">🏭</div>
+        <div class="title">PROVEEDOR</div>
+        <div class="desc" style="font-size:0.72rem;">Corta · Empaqueta<br>Envía a domicilio</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:1;">
+      <div style="width:2px;height:28px;background:linear-gradient(to bottom,#a855f7,#a855f7);position:relative;">
+        <div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid #a855f7;"></div>
+      </div>
+      <div class="card card-purple" style="width:200px;">
+        <div class="icon">📦</div>
+        <div class="title">CLIENTE</div>
+        <div class="desc" style="font-size:0.72rem;">Recibe pedido<br>QR en cada panel</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:center;gap:0;flex:1;">
+      <div style="width:2px;height:28px;background:linear-gradient(to bottom,#ec4899,#ec4899);position:relative;">
+        <div style="position:absolute;bottom:-6px;left:50%;transform:translateX(-50%);width:0;height:0;border-left:6px solid transparent;border-right:6px solid transparent;border-top:8px solid #ec4899;"></div>
+      </div>
+      <div class="card card-red" style="width:200px;">
+        <div class="icon">🔨</div>
+        <div class="title">CARPINTERO</div>
+        <div class="desc" style="font-size:0.72rem;">Opcional · GPS en vivo<br>Acepta · Fija fecha</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Merge arrows -->
+  <div style="display:flex;width:700px;justify-content:space-around;margin-top:0;">
+    <div style="display:flex;flex-direction:column;align-items:center;"><div style="width:2px;height:28px;background:linear-gradient(to bottom,#6366f1,#a855f7);"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;"><div style="width:2px;height:28px;background:linear-gradient(to bottom,#a855f7,#a855f7);"></div></div>
+    <div style="display:flex;flex-direction:column;align-items:center;"><div style="width:2px;height:28px;background:linear-gradient(to bottom,#ec4899,#a855f7);"></div></div>
+  </div>
+
+  <!-- MANUAL MONTAJE -->
+  <div style="position:relative;width:700px;display:flex;justify-content:center;">
+    <div style="position:absolute;top:0;left:18%;width:64%;height:2px;background:linear-gradient(to right,#6366f1,#a855f7,#ec4899);"></div>
+  </div>
+  <div class="arrow-down" style="margin-top:2px;"></div>
+
+  <div class="card card-purple" style="width:440px;">
+    <div class="icon">📖</div>
+    <div class="title">MANUAL DE MONTAJE IA</div>
+    <div class="desc">Paso a paso · Ilustraciones SVG tipo IKEA<br>Herramientas necesarias · Verificación por foto en cada paso<br>QR en cada panel → paso exacto que le corresponde</div>
+    <div class="tags">
+      <span class="tag">Claude API</span>
+      <span class="tag">SVG generado</span>
+      <span class="tag">QR codes</span>
+      <span class="tag">Visión IA</span>
+    </div>
+  </div>
+
+  <div class="arrow-down"></div>
+
+  <!-- POST-VENTA -->
+  <div class="card card-green" style="width:440px;">
+    <div class="icon">⭐</div>
+    <div class="title">POST-VENTA</div>
+    <div class="desc">Valoraciones · Ampliaciones del mueble<br>Segunda vida · Soporte IA</div>
+  </div>
+
+  <!-- FASES -->
+  <div class="phase-bar">
+    <div class="phase phase-1">
+      <div class="num" style="color:#6366f1;">✅</div>
+      <div class="label"><strong>FASE HOY</strong><br>Análisis completado<br>PolyBoard + OptiCut<br>1.970 + 1.217 funciones</div>
+    </div>
+    <div class="phase-arrow">▶</div>
+    <div class="phase phase-2">
+      <div class="num" style="color:#a855f7;">🚧</div>
+      <div class="label"><strong>FASE 2</strong><br>Motor propio Python<br>Motor corte guillotina<br>Modelo mueble + IA</div>
+    </div>
+    <div class="phase-arrow">▶</div>
+    <div class="phase phase-3">
+      <div class="num" style="color:#10b981;">🚀</div>
+      <div class="label"><strong>FASE 3</strong><br>Plataforma completa<br>App móvil AR<br>Marketplace</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">POLYNEW · Marcos Poggi · 2026 · Confidencial</div>
+
+</body>
+</html>
